@@ -12,10 +12,25 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Hyperf\HttpServer\Contract\RequestInterface;
+use function Hyperf\Support\env;
+use GuzzleHttp\Client;
 
 class UserController extends AbstractController
 {
+    /**
+     * @Inject
+     * @var Client
+     */
+    protected Client $client;
+
+    /**
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * Handle the request to the index endpoint.
      *
@@ -31,7 +46,7 @@ class UserController extends AbstractController
 
         return [
             'method' => $method,
-            'message' => "Hello {$user}.",
+            'message' => "Hello {$user}."
         ];
     }
 
@@ -46,9 +61,15 @@ class UserController extends AbstractController
      */
     public function store(): array
     {
-        return [
-           'name' => $this->request->input('name', '-'),
-           'email' => $this->request->input('email', '-'),
-        ];
+        return $this->getApiFake($this->request->input('name'));
+    }
+
+    private function getApiFake(string $name): array
+    {
+        $response = $this->client->get(env('API_FAKE') . "?name=$name");
+
+        $data = $response->getBody()->getContents();
+
+        return json_decode($data, true);
     }
 }
