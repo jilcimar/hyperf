@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Controller\UserController;
+use App\Controller\PaymentController;
 
 /**
  * This file is part of Hyperf.
@@ -16,8 +16,8 @@ use Hyperf\HttpServer\Router\Router;
 
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 
-Router::get('/users', [UserController::class, 'index']);
-Router::post('/users', [UserController::class, 'store']);
+Router::get('/payments', [PaymentController::class, 'index']);
+Router::post('/payment', [PaymentController::class, 'store']);
 
 Router::get('/favicon.ico', function () {
     return '';

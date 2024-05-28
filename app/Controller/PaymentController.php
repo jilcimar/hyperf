@@ -15,7 +15,7 @@ namespace App\Controller;
 use function Hyperf\Support\env;
 use GuzzleHttp\Client;
 
-class UserController extends AbstractController
+class PaymentController extends AbstractController
 {
     /**
      * @Inject
