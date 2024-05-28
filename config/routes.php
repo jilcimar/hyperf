@@ -9,13 +9,10 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+use Hyperf\HttpServer\Router\Router;
 
-namespace App\Process;
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 
-use Hyperf\AsyncQueue\Process\ConsumerProcess;
-use Hyperf\Process\Annotation\Process;
-
-#[Process]
-class AsyncQueueConsumer extends ConsumerProcess
-{
-}
+Router::get('/favicon.ico', function () {
+    return '';
+});
