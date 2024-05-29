@@ -14,7 +14,20 @@ services:
     command: php bin/hyperf.php server:watch
     networks:
       - hyperf-network
-
+    depends_on:
+      - hyperf-skeleton-mariadb
+  hyperf-skeleton-mariadb:
+    container_name: hyperf-skeleton-mariadb
+    image: mariadb:latest
+    volumes:
+      - ./.docker/mariadb:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "hyperf-skeleton"
+    networks:
+      - hyperf-network
 networks:
   hyperf-network:
     name: hyperf-network
