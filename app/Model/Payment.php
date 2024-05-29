@@ -35,6 +35,7 @@ class Payment extends Model
         'status',
         'amount',
         'description',
+        'response',
         'canceled_at',
         'created_at',
         'updated_at',

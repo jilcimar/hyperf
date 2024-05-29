@@ -15,12 +15,12 @@ services:
     networks:
       - hyperf-network
     depends_on:
-      - hyperf-skeleton-mariadb
-  hyperf-skeleton-mariadb:
-    container_name: hyperf-skeleton-mariadb
-    image: mariadb:latest
+      - hyperf-skeleton-mysql
+  hyperf-skeleton-mysql:
+    container_name: hyperf-skeleton-mysql
+    image: mysql:latest
     volumes:
-      - ./.docker/mariadb:/var/lib/mysql
+      - my-db:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
@@ -31,3 +31,5 @@ services:
 networks:
   hyperf-network:
     name: hyperf-network
+volumes:
+  my-db:

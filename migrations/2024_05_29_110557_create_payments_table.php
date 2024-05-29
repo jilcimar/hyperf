@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->string('status', 25);
             $table->float('amount');
             $table->string('description', 190)->nullable();
+            $table->json('response', 190)->nullable();
             $table->timestamp('canceled_at')->nullable();
 
             $table->timestamps();
