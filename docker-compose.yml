@@ -1,0 +1,35 @@
+version: '3'
+services:
+  hyperf:
+    container_name: hyperf
+    image: hyperf/hyperf:8.1-alpine-v3.18-swoole
+    volumes:
+      - ./:/data/project/hyperf-skeleton
+    ports:
+      - 9501:9501
+    environment:
+      - APP_ENV=dev
+      - SCAN_CACHEABLE=false
+    working_dir: /data/project/hyperf-skeleton
+    command: php bin/hyperf.php server:watch
+    networks:
+      - hyperf-network
+    depends_on:
+      - hyperf-skeleton-mysql
+  hyperf-skeleton-mysql:
+    container_name: hyperf-skeleton-mysql
+    image: mysql:latest
+    volumes:
+      - my-db:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "hyperf-skeleton"
+    networks:
+      - hyperf-network
+networks:
+  hyperf-network:
+    name: hyperf-network
+volumes:
+  my-db:
