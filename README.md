@@ -25,3 +25,10 @@ Here is a brief overview of the project structure:
 - docker-compose.yml: Docker Compose configuration file.
 - Dockerfile: Dockerfile for custom Docker image.
 - composer.json: Composer configuration file for managing dependencies.
+
+## Routes
+| Method | Route     | Description                   |
+|--------|-----------|-------------------------------|
+| POST   | /payment  | Create a new payment.         |
+| GET    | /payments | List all registered payments. |
+| GET    | /         | Test Hyperf functions.        |
