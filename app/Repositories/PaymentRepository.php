@@ -3,14 +3,19 @@
 namespace App\Repositories;
 
 use App\Enum\PaymentStatus;
+use App\Event\PaymentRegistered;
 use App\Model\Payment;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Hyperf\Collection\Collection;
 use Hyperf\Database\Model\Model;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class PaymentRepository extends BaseRepository
 {
+//    #[Inject]
+//    private EventDispatcherInterface $eventDispatcher;
+
     /**
      * @Inject
      * @var Client
@@ -29,11 +34,16 @@ class PaymentRepository extends BaseRepository
      */
     public function create(array|Collection $attributes): Model
     {
+        $requestApi = $this->postApiFake($attributes['description']);
+
         $attributes['status'] = PaymentStatus::PENDING->value;
-        $requestApi = $this->postApiFake($attributes['status']);
         $attributes['response'] = $requestApi;
 
-        return parent::create($attributes);
+        $payment = parent::create($attributes);
+
+        //$this->eventDispatcher->dispatch(new PaymentRegistered($payment));
+
+        return $payment;
     }
 
     /**
