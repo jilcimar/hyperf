@@ -18,14 +18,15 @@ use Hyperf\Database\Schema\Schema;
 
 class PaymentController extends CrudController
 {
+    private PaymentRepository $paymentRepository;
 
-    public function __construct()
+    public function __construct(PaymentRepository $paymentRepository)
     {
-        $this->repository = new PaymentRepository();
+        $this->paymentRepository = $paymentRepository;
         $this->model = new Payment();
 
         $this->columns = Schema::getColumnListing($this->model->getTable());
 
-        parent::__construct($this->repository, $this->model, $this->columns);
+        parent::__construct($this->paymentRepository, $this->model, $this->columns);
     }
 }
