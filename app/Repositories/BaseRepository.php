@@ -11,11 +11,7 @@ class BaseRepository
     /**
      * BaseRepository constructor.
      */
-    public function __construct(
-        protected Model $model,
-        protected ?string $resourceType = null,
-        protected ?Model  $resourceInstance = null
-    )
+    public function __construct(protected Model $model)
     {
     }
 

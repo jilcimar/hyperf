@@ -12,6 +12,8 @@ use Hyperf\Collection\Collection;
 use Hyperf\Database\Model\Model;
 use Hyperf\AsyncQueue\Driver\DriverFactory;
 use Hyperf\AsyncQueue\Driver\DriverInterface;
+use Hyperf\Di\Annotation\Inject;
+
 class PaymentRepository extends BaseRepository
 {
     /**
@@ -19,16 +21,13 @@ class PaymentRepository extends BaseRepository
      */
     protected DriverInterface $driver;
 
-    /**
-     * @Inject
-     * @var Client
-     */
+    #[Inject]
     private Client $client;
-    public function __construct(Client $client, DriverFactory $driverFactory)
+
+    public function __construct(DriverFactory $driverFactory)
     {
-        parent::__construct(new Payment());
         $this->driver = $driverFactory->get('default');
-        $this->client = $client;
+        parent::__construct(new Payment());
     }
 
     /**
