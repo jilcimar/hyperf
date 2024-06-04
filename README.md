@@ -9,6 +9,7 @@ To start the project, follow these steps:
 1. Ensure you have Docker installed and running on your machine.
 2. Clone this repository to your local machine. 
 3. Navigate to the project directory. 
+4. Run the following command to copy .env ```cp .env.example .env```
 4. Run the following command to start the project:
 ```bash
 docker compose up
