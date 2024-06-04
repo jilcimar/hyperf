@@ -17,7 +17,7 @@ class PaymentRepository extends BaseRepository
     /**
      * @var DriverInterface
      */
-    protected $driver;
+    protected DriverInterface $driver;
 
     /**
      * @Inject
