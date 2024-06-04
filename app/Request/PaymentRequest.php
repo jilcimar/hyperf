@@ -26,16 +26,4 @@ class PaymentRequest extends FormRequest
             'description' => 'required|max:255|min:3|string',
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'amount.required' => 'The amount field is required',
-            'amount.numeric' => 'The amount field must be numeric',
-            'description.required' => 'The description field is required',
-            'description.string' => 'The description field must be string',
-            'description.min' => 'The description field must have at least 3 characters',
-            'description.max' => 'The description field must have a maximum of 255 characters',
-        ];
-    }
 }
