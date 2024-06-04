@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 /**
  * This file is part of Hyperf.
  *
@@ -23,6 +22,7 @@ class PaymentController extends CrudController
     public function __construct(PaymentRepository $paymentRepository)
     {
         $this->paymentRepository = $paymentRepository;
+
         $this->model = new Payment();
 
         $this->columns = Schema::getColumnListing($this->model->getTable());

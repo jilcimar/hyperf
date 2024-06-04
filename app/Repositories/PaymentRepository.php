@@ -1,29 +1,33 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Repositories;
 
 use App\Enum\PaymentStatus;
-use App\Event\PaymentRegistered;
+use App\Job\PaymentJob;
 use App\Model\Payment;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Hyperf\Collection\Collection;
 use Hyperf\Database\Model\Model;
-use Psr\EventDispatcher\EventDispatcherInterface;
-
+use Hyperf\AsyncQueue\Driver\DriverFactory;
+use Hyperf\AsyncQueue\Driver\DriverInterface;
 class PaymentRepository extends BaseRepository
 {
-//    #[Inject]
-//    private EventDispatcherInterface $eventDispatcher;
+    /**
+     * @var DriverInterface
+     */
+    protected $driver;
 
     /**
      * @Inject
      * @var Client
      */
     private Client $client;
-    public function __construct(Client $client)
+    public function __construct(Client $client, DriverFactory $driverFactory)
     {
         parent::__construct(new Payment());
+        $this->driver = $driverFactory->get('default');
         $this->client = $client;
     }
 
@@ -41,7 +45,7 @@ class PaymentRepository extends BaseRepository
 
         $payment = parent::create($attributes);
 
-        //$this->eventDispatcher->dispatch(new PaymentRegistered($payment));
+        $this->driver->push(new PaymentJob($payment));
 
         return $payment;
     }
