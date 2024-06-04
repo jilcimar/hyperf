@@ -11,22 +11,29 @@
 
 namespace App\Controller;
 
-use App\Model\Payment;
 use App\Repositories\PaymentRepository;
-use Hyperf\Database\Schema\Schema;
+use App\Request\PaymentRequest;
+use GuzzleHttp\Exception\GuzzleException;
+use Hyperf\Collection\Collection;
+use Hyperf\Database\Model\Model;
+use Hyperf\Di\Annotation\Inject;
 
-class PaymentController extends CrudController
+class PaymentController
 {
-    private PaymentRepository $paymentRepository;
+    #[Inject]
+    private PaymentRepository $repository;
 
-    public function __construct(PaymentRepository $paymentRepository)
+    public function index(): Collection
     {
-        $this->paymentRepository = $paymentRepository;
+        return $this->repository->all();
+    }
 
-        $this->model = new Payment();
-
-        $this->columns = Schema::getColumnListing($this->model->getTable());
-
-        parent::__construct($this->paymentRepository, $this->model, $this->columns);
+    /**
+     * @throws GuzzleException
+     */
+    public function store(PaymentRequest $request): Model
+    {
+        $params = $request->validated();
+        return $this->repository->create($params);
     }
 }
