@@ -1,35 +1,38 @@
-# Introduction
-This is a skeleton application using the Hyperf framework. This application is a Proof of Concept (POC) meant to be used as a starting place for those looking to get their feet wet with Hyperf Framework.
-## Documentation
-For detailed documentation, please visit the Hyperf documentation.
+# Introdução
+Esta é uma aplicação esqueleto utilizando o framework Hyperf. 
+Esta aplicação é uma Prova de Conceito (POC) destinada a ser usada como 
+ponto de partida para aqueles que desejam se familiarizar com o Framework Hyperf.
 
-## Start the project
-To start the project, follow these steps:
+# Iniciar o projeto
+Para iniciar o projeto, siga estes passos:
 
-1. Ensure you have Docker installed and running on your machine.
-2. Clone this repository to your local machine. 
-3. Navigate to the project directory. 
-4. Run the following command to copy .env ```cp .env.example .env```
-4. Run the following command to start the project:
+1. Certifique-se de ter o `docker` e o `docker compose` instalado em sua máquina.
+2. Clone este repositório para a sua máquina local e navegue até o diretório do projeto.
+3. Execute o seguinte comando para criar o .env ```cp .env.example .env```
+4. Execute o seguinte comando para iniciar o projeto:
 ```bash
 docker compose up
 ```
-After the project starts, it will be running at http://localhost:9501.
+5. Entre no container do Hyperf e rode as migrations para criar as tabelas do banco de dados:
+```bash
+php bin/hyperf.php migrate
+```
+Após o início do projeto, ele estará em execução em: http://localhost:9501.
 
-## Project Structure
-Here is a brief overview of the project structure:
+## Estrutura do Projeto
+Aqui está uma visão geral da estrutura do projeto:
 
-- app/: Contains the application code.
-- config/: Configuration files for the application.
-- runtime/: Generated files and caches.
-- bin/: Executable files.
-- docker-compose.yml: Docker Compose configuration file.
-- Dockerfile: Dockerfile for custom Docker image.
-- composer.json: Composer configuration file for managing dependencies.
+- app/: Contém o código da aplicação.
+- config/: Arquivos de configuração da aplicação.
+- runtime/: Arquivos gerados e caches.
+- bin/: Arquivos executáveis.
+- docker-compose.yml: Arquivo de configuração do Docker Compose.
+- Dockerfile: Dockerfile para a imagem Docker personalizada.
+- composer.json: Arquivo de configuração do Composer para gerenciar dependências.
 
-## Routes
-| Method | Route     | Description                   |
-|--------|-----------|-------------------------------|
-| POST   | /payment  | Create a new payment.         |
-| GET    | /payments | List all registered payments. |
-| GET    | /         | Test Hyperf functions.        |
+## Rotas
+| Método | Rota     | Descrição                 |
+|--------|-----------|-----------------------------|
+| POST   | /payment  | Criar um novo pagamento.|
+| GET    | /payments | Listar todos os pagamentos registrados. |
+| GET    | /         | Testar funções do Hyperf.       |
