@@ -28,8 +28,18 @@ services:
       MYSQL_DATABASE: "hyperf-skeleton"
     networks:
       - hyperf-network
+  redis:
+    image: "redis"
+    command:
+      - "redis-server"
+      - "--databases 256"
+    networks:
+      - hyperf-network
+    volumes:
+      - redis-data:/data
 networks:
   hyperf-network:
     name: hyperf-network
 volumes:
   my-db:
+  redis-data:
