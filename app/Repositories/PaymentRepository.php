@@ -22,7 +22,7 @@ class PaymentRepository extends BaseRepository
     protected DriverInterface $driver;
 
     #[Inject]
-    private Client $client;
+    public Client $client;
 
     public function __construct(DriverFactory $driverFactory)
     {
