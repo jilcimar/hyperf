@@ -16,13 +16,10 @@ use Hyperf\Di\Annotation\Inject;
 
 class PaymentRepository extends BaseRepository
 {
-    /**
-     * @var DriverInterface
-     */
     protected DriverInterface $driver;
 
     #[Inject]
-    public Client $client;
+    protected readonly Client $client;
 
     public function __construct(DriverFactory $driverFactory)
     {
