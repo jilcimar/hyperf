@@ -34,7 +34,7 @@ class PaymentRepository extends BaseRepository
      */
     public function create(array|Collection $attributes): Model
     {
-        $requestApi = $this->postApiFake($attributes['description']);
+        $requestApi = $this->getApiFake($attributes['description']);
 
         $attributes['status'] = PaymentStatus::PENDING->value;
         $attributes['response'] = $requestApi;
@@ -51,7 +51,7 @@ class PaymentRepository extends BaseRepository
      * @return string
      * @throws GuzzleException
      */
-    private function postApiFake(string $name): string
+    private function getApiFake(string $name): string
     {
         //TODO:: Procurar uma API pública para fazer post
         $response = $this->client->get("https://api.genderize.io?name=$name");
