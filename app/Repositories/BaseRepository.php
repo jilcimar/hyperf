@@ -28,7 +28,7 @@ class BaseRepository
     /**
      * TODO:: Return paginated collection
      */
-    public function all(): Collection | array
+    public function all(): Collection
     {
         return $this->model->where('deleted_at', '=', null)->get();
     }

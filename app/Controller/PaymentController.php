@@ -14,18 +14,25 @@ namespace App\Controller;
 use App\Repositories\PaymentRepository;
 use App\Request\PaymentRequest;
 use GuzzleHttp\Exception\GuzzleException;
-use Hyperf\Collection\Collection;
 use Hyperf\Database\Model\Model;
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\Paginator\Paginator;
 
 class PaymentController
 {
     #[Inject]
-    private PaymentRepository $repository;
+    public PaymentRepository $repository;
 
-    public function index(): Collection
+    public function index(RequestInterface $request): Paginator
     {
-        return $this->repository->all();
+        $currentPage = (int) $request->input('page', 1);
+
+        $collection = $this->repository->all();
+
+        $payments = array_values($collection->forPage($currentPage, 5)->toArray());
+
+        return new Paginator($payments, 5, $currentPage);
     }
 
     /**
